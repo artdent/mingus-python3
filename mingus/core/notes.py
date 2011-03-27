@@ -37,7 +37,6 @@
 """
 
 from mt_exceptions import NoteFormatError, RangeError
-import intervals
 
 _note_dict = {
     'C': 0,
@@ -192,6 +191,7 @@ def to_major(note):
 >>> to_major(\"A\")
 'C'
 }}}"""
+    import intervals  # Circular import
 
     return intervals.minor_third(note)
 
@@ -203,6 +203,7 @@ def to_minor(note):
 >>> to_minor(\"C\")
 'A'
 }}}"""
+    import intervals  # Circular import
 
     return intervals.major_sixth(note)
 
