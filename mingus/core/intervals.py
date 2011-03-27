@@ -36,8 +36,8 @@
 
 ================================================================================"""
 
-import notes
-import keys
+from . import notes
+from . import keys
 
 def interval(key, start_note, interval):
     """Return the note found at the interval starting from start_note in the
@@ -48,7 +48,7 @@ def interval(key, start_note, interval):
     """
 
     if not notes.is_valid_note(start_note):
-        raise KeyError, "The start note '%s' is not a valid note" % start_note
+        raise KeyError("The start note '%s' is not a valid note" % start_note)
     notes_in_key = keys.get_notes(key)
     for n in notes_in_key:
         if n[0] == start_note[0]:
@@ -238,7 +238,7 @@ def get_interval(note, interval, key='C'):
 will produce mostly theoretical sound results, but you should use the minor \
 and major functions to work around the corner cases."""
 
-    intervals = map(lambda x: (notes.note_to_int(key) + x) % 12, [
+    intervals = [(notes.note_to_int(key) + x) % 12 for x in [
         0,
         2,
         4,
@@ -246,7 +246,7 @@ and major functions to work around the corner cases."""
         7,
         9,
         11,
-        ])
+        ]]
     key_notes = keys.get_notes(key)
     for x in key_notes:
         if x[0] == note[0]:

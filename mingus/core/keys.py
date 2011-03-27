@@ -27,8 +27,8 @@
 ================================================================================
 """
 
-from mt_exceptions import FormatError, NoteFormatError, RangeError
-import notes
+from .mt_exceptions import FormatError, NoteFormatError, RangeError
+from . import notes
 import operator
 from itertools import cycle, islice
 
@@ -66,8 +66,8 @@ def get_key(number=0, symbol=''):
     """Return the tuple containing the major key corrensponding to the
     accidentals put as input, and his relative minor."""
 
-    if number not in range(8):
-        raise RangeError, 'Integer not in range 0-7.'
+    if number not in list(range(8)):
+        raise RangeError('Integer not in range 0-7.')
     if symbol == 'b':
         couple = 7 - number
     elif symbol == "#":
@@ -75,15 +75,15 @@ def get_key(number=0, symbol=''):
     elif symbol == '' and number == 0:
         couple = 7
     else:
-        raise FormatError, "'%s' unrecognized: only 'b' and '#' admitted"\
-                % symbol
+        raise FormatError("'%s' unrecognized: only 'b' and '#' admitted"\
+                % symbol)
     return keys[couple]
 
 def get_key_signature(key):
     """Return the key signature (None for C or a)."""
 
     if not is_valid_key(key):
-        raise NoteFormatError, "Unrecognized format for key '%s'" % key
+        raise NoteFormatError("Unrecognized format for key '%s'" % key)
 
     for couple in keys:
         if key in couple:
@@ -116,15 +116,15 @@ def get_notes(key):
     'Eb', 'F', 'G', 'Ab', 'Bb']`.
     """
 
-    if _key_cache.has_key(key):
+    if key in _key_cache:
         return _key_cache[key]
     if not is_valid_key(key):
-        raise NoteFormatError, "Unrecognized format for key '%s'" % key
+        raise NoteFormatError("Unrecognized format for key '%s'" % key)
     result = []
 
     # Calculate notes
     accidentals = get_key_signature_accidentals(key)
-    altered_notes = map(operator.itemgetter(0), accidentals)
+    altered_notes = list(map(operator.itemgetter(0), accidentals))
     try:
         symbol = accidentals[0][1]
     except:

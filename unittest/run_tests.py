@@ -40,6 +40,7 @@ import test_scales
 import test_meter
 import test_progressions
 import test_value
+import test_keys
 
 # mingus.containers Tests
 
@@ -72,6 +73,7 @@ core = [
     test_meter,
     test_progressions,
     test_value,
+    test_keys,
     ]
 containers = [
     test_Note,
