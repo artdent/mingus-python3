@@ -36,7 +36,7 @@
 ================================================================================
 """
 
-from mt_exceptions import NoteFormatError, RangeError
+from .mt_exceptions import NoteFormatError, RangeError
 
 _note_dict = {
     'C': 0,
@@ -64,8 +64,8 @@ Cb). You can use int_to_note in diatonic_key to do theoretically correct \
 conversions that bear the key in mind. Throws a !RangeError exception if the \
 note_int is not in range(0,12)."""
 
-    if note_int not in range(0, 12):
-        raise RangeError, 'int out of bounds (0-11): %d ' % note_int
+    if note_int not in list(range(0, 12)):
+        raise RangeError('int out of bounds (0-11): %d ' % note_int)
     n = [
         'C',
         'C#',
@@ -92,7 +92,7 @@ def is_enharmonic(note1, note2):
 def is_valid_note(note):
     """Returns true if note is in a recognised format. False if not"""
 
-    if not _note_dict.has_key(note[0]):
+    if note[0] not in _note_dict:
         return False
     for post in note[1:]:
         if post != 'b' and post != '#':
@@ -108,7 +108,7 @@ not recognised."""
     if is_valid_note(note):
         val = _note_dict[note[0]]
     else:
-        raise NoteFormatError, "Unknown note format '%s'" % note
+        raise NoteFormatError("Unknown note format '%s'" % note)
 
     # Check for '#' and 'b' postfixes
 
@@ -128,7 +128,7 @@ def reduce_accidentals(note):
         elif token == '#':
             val += 1 
         else:
-            raise NoteFormatError, "Unknown note format '%s'" % note
+            raise NoteFormatError("Unknown note format '%s'" % note)
     val = val % 12
     return int_to_note(val)
 
@@ -191,7 +191,7 @@ def to_major(note):
 >>> to_major(\"A\")
 'C'
 }}}"""
-    import intervals  # Circular import
+    from . import intervals  # Circular import
 
     return intervals.minor_third(note)
 
@@ -203,7 +203,7 @@ def to_minor(note):
 >>> to_minor(\"C\")
 'A'
 }}}"""
-    import intervals  # Circular import
+    from . import intervals  # Circular import
 
     return intervals.major_sixth(note)
 

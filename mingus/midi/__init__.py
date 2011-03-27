@@ -23,8 +23,8 @@
 ================================================================================
 """
 
-from Sequencer import Sequencer
-from SequencerObserver import SequencerObserver
+from .Sequencer import Sequencer
+from .SequencerObserver import SequencerObserver
 __all__ = [
     'Sequencer',
     'SequencerObserver',

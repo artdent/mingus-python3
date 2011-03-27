@@ -21,18 +21,18 @@ class test_LilyPond(unittest.TestCase):
         self.tbar = Bar('C', (4, 4))
         self.mbar = Bar('C', (4, 4))
         for y in [self.commonbar, self.ebar, self.fbar]:
-            map(lambda x: y + x, ['C', 'E', 'G', 'B'])
-        map(lambda x: self.tbar.place_notes(NoteContainer(x), 6), [
+            list(map(lambda x: y + x, ['C', 'E', 'G', 'B']))
+        list(map(lambda x: self.tbar.place_notes(NoteContainer(x), 6), [
             'C',
             'E',
             'G',
             'B',
             'C',
             'E',
-            ])
-        map(lambda x: self.mbar.place_notes(NoteContainer(x), 4), ['C', 'E'])
-        map(lambda x: self.mbar.place_notes(NoteContainer(x), 6), ['G', 'B', 'C'
-            ])
+            ]))
+        list(map(lambda x: self.mbar.place_notes(NoteContainer(x), 4), ['C', 'E']))
+        list(map(lambda x: self.mbar.place_notes(NoteContainer(x), 6), ['G', 'B', 'C'
+            ]))
         self.track1 = Track()
         self.track1 + self.commonbar
         self.track2 = Track()
